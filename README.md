@@ -35,11 +35,17 @@ To avoid VRAM thrashing/OOM:
 - private mirrors are created only up to a computed budget
 - when budget is exceeded, the backend **falls back** to shared mmap (slow but correct) and logs a warning
 
-Configurable:
+Configurable example for a 32 Go GPU W6800x:
 
 ```bash
 export GGML_METAL_VRAM_RESERVE_MB=2048    # default reserve margin
 export GGML_METAL_VRAM_BUDGET_MB=32000    # optional hard cap override
+```
+Configurable example for a 16 Go GPU RX6800xt:
+
+```bash
+export GGML_METAL_VRAM_RESERVE_MB=1024    # default reserve margin
+export GGML_METAL_VRAM_BUDGET_MB=16000    # optional hard cap override
 ```
 
 ### ✅ Stability on AMD dGPU
@@ -53,22 +59,37 @@ export GGML_METAL_CONCURRENCY_DISABLE=1
 
 ---
 
-## Build
 
-### Clone
+### 📦 Installation
+```bash
+  git clone https://github.com/ggerganov/llama.cpp.git
+  cd llama.cpp
+```
 
 ```bash
 git clone "this repo"
 cd "this repo"
 ```
 
-### Configure 
-
+### 📦 Patch 
+➡️ Then replace the 3 modified files from this repo into:
+llama.cpp/ggml/src/ggml-metal/      … and you’re done ✅
 ```bash
 Copy the 3 files (ggml-metal-device.m ggml-metal-context.m ggml-metal-ops.cpp) into a fresh llama.cpp repo and replace the files in /ggml/src/ggml-metal/ -j
 ```
 
----
+## ➡️ Prerequisites (Metal-only build)
+```bash
+brew install cmake git libomp glslang
+```
+➡️ Prerequisites (Metal + Vulkan build)
+```bash
+brew install cmake git libomp glslang molten-vk shaderc vulkan-loader vulkan-headers
+```
+➡️ Build
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DGGML_METAL_MGPU=ON -DOpenMP_ROOT="$(brew --prefix)/opt/libomp" && cmake --build build -j
+```
 
 ## Quick Validation
 
