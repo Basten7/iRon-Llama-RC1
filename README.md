@@ -14,7 +14,7 @@ The goal is to restore/ensure:
 
 ---
 
-## Highlights
+## Highlights of this version
 
 ### ✅ GPU Device Selection
 
@@ -67,8 +67,8 @@ export GGML_METAL_CONCURRENCY_DISABLE=1
 ```
 
 ```bash
-git clone "this repo"
-cd "this repo"
+git clone https://github.com/Basten7/iRon-Llama-RC1.git
+cd iRon-Llama-RC1
 ```
 
 ### 📦 Patch 
