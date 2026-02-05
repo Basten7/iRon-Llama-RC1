@@ -65,7 +65,7 @@ export GGML_METAL_CONCURRENCY_DISABLE=1
 git clone https://github.com/ggerganov/llama.cpp.git
 cd llama.cpp
 git fetch --tags
-git checkout b7000
+git checkout 7833
 ```
 
 ```bash
